@@ -11,7 +11,7 @@ class User < ApplicationRecord
     (?=.*[A-Z])        # Must contain an upper case character
     (?=.*[[:^alnum:]]) # Must contain a symbol
   /x
-
+  
   validates :email, presence: true, uniqueness: true, format: {
     with: URI::MailTo::EMAIL_REGEXP,
   }
