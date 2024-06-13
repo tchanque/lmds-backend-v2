@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :publication do
-    creator { nil }
+    association :creator, factory: :user
     title { "MyString" }
     description { "MyText" }
     to_display { false }

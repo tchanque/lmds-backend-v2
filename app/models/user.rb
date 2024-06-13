@@ -6,6 +6,8 @@ class User < ApplicationRecord
   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
   has_many :publications
+  has_many :attendances, foreign_key: 'attendee_id', dependent: :destroy 
+  has_many :events, through: :attendances 
 
   PASSWORD_FORMAT = /\A
     (?=.{8,})          # Must contain 8 or more characters
