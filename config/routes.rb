@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :publications
   resources :event_instruments
   resources :instruments
   resources :events

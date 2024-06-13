@@ -5,6 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
+  has_many :publications
+
   PASSWORD_FORMAT = /\A
     (?=.{8,})          # Must contain 8 or more characters
     (?=.*\d)           # Must contain a digit

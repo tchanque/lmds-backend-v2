@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_125512) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_13_132659) do
   create_table "event_instruments", force: :cascade do |t|
     t.integer "event_id"
     t.integer "instrument_id"
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_125512) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
+  create_table "publications", force: :cascade do |t|
+    t.integer "creator_id", null: false
+    t.string "title"
+    t.text "description"
+    t.boolean "to_display", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_publications_on_creator_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -71,4 +81,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_125512) do
   add_foreign_key "event_instruments", "events"
   add_foreign_key "event_instruments", "instruments"
   add_foreign_key "events", "users", column: "creator_id"
+  add_foreign_key "publications", "users", column: "creator_id"
 end
