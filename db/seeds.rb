@@ -1,5 +1,6 @@
 # Clear existing data
 EventInstrument.destroy_all
+Skill.destroy_all
 Event.destroy_all
 Instrument.destroy_all
 User.destroy_all
@@ -84,6 +85,25 @@ EventInstrument.create!(
   total_spots: 15,
   available_spots: 10,
   level: 1
+)
+
+# Create skills
+Skill.create!(
+  musician: user1,
+  instrument: instrument3,
+  level: 1
+)
+
+Skill.create!(
+  musician: user1,
+  instrument: instrument2,
+  level: 4
+)
+
+Skill.create!(
+  musician: user2,
+  instrument: instrument3,
+  level: 3
 )
 
 puts "Database seeded successfully!"

@@ -54,3 +54,5 @@ end
 gem "devise", "~> 4.9"
 gem "devise-jwt", "~> 0.11.0"
 gem "rack-cors", "~> 2.0"
+
+gem "table_print", "~> 1.5"
