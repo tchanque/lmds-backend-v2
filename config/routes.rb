@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :event_instruments
   resources :instruments
   resources :events
   devise_for :users,
