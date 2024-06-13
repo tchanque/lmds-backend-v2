@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'date'
+
 
 RSpec.describe User, type: :model do
   describe 'validations' do
@@ -85,6 +87,46 @@ RSpec.describe User, type: :model do
           expect(subject).not_to be_valid, "#{password.inspect} should be invalid"
         end
       end
+    end
+
+    context 'is_subscriber validations' do
+      it 'is valid with a valid boolean' do
+        valid_is_subscriber = [true, false]
+
+        valid_is_subscriber.each do |is_subscriber|
+          subject.is_subscriber = is_subscriber
+          expect(subject).to be_valid, "#{is_subscriber.inspect} should be valid"
+        end
+      end
+
+      # it 'is invalid with an invalid boolean' do
+      #   invalid_is_subscriber = ['not a boolean']
+
+      #   invalid_is_subscriber.each do |is_subscriber|
+      #     subject.is_subscriber = is_subscriber
+      #     expect(subject).not_to be_valid, "#{is_subscriber.inspect} should be invalid"
+      #   end
+      # end
+    end
+
+    context 'end subscription validations' do
+      it 'is valid with a valid date' do
+        valid_subscription_end_date = [DateTime.new(2025, 1, 1, 0, 0, 0)]
+
+        valid_subscription_end_date.each do |end_date|
+          subject.subscription_end_date = end_date
+          expect(subject).to be_valid, "#{end_date.inspect} should be valid"
+        end
+      end
+
+      # it 'is invalid with an invalid date' do
+      #   invalid_subscription_end_date = [0, 'not a date']
+    
+      #   invalid_subscription_end_date.each do |end_date|
+      #     subject.subscription_end_date = end_date
+      #     expect(subject).not_to be_valid, "#{end_date.inspect} should be invalid but errors are #{subject.errors.full_messages}"
+      #   end
+      # end
     end
   end
 end
