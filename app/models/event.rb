@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
     CATEGORIES = ["Atelier", "Concert", "Permanence", "Stage", "Scène ouverte"]
   
-    belongs_to :creator, class_name: 'User'
+    belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
   
     validates :creator, presence: true
     validates :category, presence: true, inclusion: { in: CATEGORIES }
@@ -10,9 +10,9 @@ class Event < ApplicationRecord
     validates :location, presence: true
     validates :price, numericality: { greater_than_or_equal_to: 0 }
   
-    has_many :event_instruments
-    has_many :attendances, dependent: :destroy 
-    has_many :attendees, through: :attendances
+    has_many :event_instruments, dependent: :destroy
+    has_many :attendances, dependent: :destroy
+    has_many :attendees, through: :attendances, source: :user
 
     private
 

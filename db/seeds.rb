@@ -3,6 +3,7 @@ CATEGORIES = Event::CATEGORIES
 
 # Clear existing data
 Attendance.destroy_all
+Publication.destroy_all
 EventInstrument.destroy_all
 Skill.destroy_all
 Event.destroy_all
@@ -22,23 +23,23 @@ user1 = User.create!(
   subscription_end_date: DateTime.now + 1.year
 )
 
-user2 = User.create!(
-  email: 'admin@example.com',
-  password: PASSWORD,
-  first_name: 'Jane',
-  last_name: 'Smith',
-  role: 'admin',
-  is_subscriber: false
-)
+# user2 = User.create!(
+#   email: 'admin@example.com',
+#   password: PASSWORD,
+#   first_name: 'Jane',
+#   last_name: 'Smith',
+#   role: 'admin',
+#   is_subscriber: false
+# )
 
-user3 = User.create!(
-  email: 'student@example.com',
-  password: PASSWORD,
-  first_name: 'Jane',
-  last_name: 'Smith',
-  role: 'student',
-  is_subscriber: false
-)
+# user3 = User.create!(
+#   email: 'student@example.com',
+#   password: PASSWORD,
+#   first_name: 'Jane',
+#   last_name: 'Smith',
+#   role: 'student',
+#   is_subscriber: false
+# )
 
 # Create events
 5.times do |i|
@@ -50,6 +51,16 @@ user3 = User.create!(
     end_date: DateTime.now + 1.month + 1.day,
     location: 'New York',
     description: 'A grand music event.'
+  )
+end
+
+# Create publications
+5.times do |i|
+  Publication.create!(
+    creator: User.all.sample,
+    title: Faker::Lorem.sentence(word_count: 1),
+    description: Faker::Lorem.sentence(word_count: 2),
+    to_display: [true, false].sample
   )
 end
 
