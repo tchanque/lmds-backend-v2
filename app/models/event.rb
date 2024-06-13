@@ -14,13 +14,13 @@ class Event < ApplicationRecord
     private
 
     def valid_date?
-      return errors.add(:La_date, 'doit être renseignée.') && false unless start_date.present? && end_date.present?
+      return errors.add(:date, 'must exist.') && false unless start_date.present? && end_date.present?
   
       if start_date < Date.today
-        errors.add(:La_date, 'ne peut pas être passée.')
+        errors.add(:date, "can't be past.")
         return false
       elsif end_date < start_date
-        errors.add(:La_date, "ne peut pas être inférieure à la date de début d'événement")
+        errors.add(:date, "can't be before start date")
         return false
       end
   

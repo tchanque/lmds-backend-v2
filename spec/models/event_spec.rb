@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
-  let(:creator) { create(:user) } # Assurez-vous d'avoir une factory pour user
+  let(:creator) { create(:user) } 
   
   subject {
     described_class.new(
@@ -41,25 +41,25 @@ RSpec.describe Event, type: :model do
     it "is not valid without a start_date" do
       subject.start_date = nil
       expect(subject).to_not be_valid
-      expect(subject.errors[:La_date]).to include("doit être renseignée.")
+      expect(subject.errors[:date]).to include("must exist.")
     end
 
     it "is not valid with a past start_date" do
       subject.start_date = Date.yesterday
       expect(subject).to_not be_valid
-      expect(subject.errors[:La_date]).to include("ne peut pas être passée.")
+      expect(subject.errors[:date]).to include("can't be past.")
     end
 
     it "is not valid without an end_date" do
       subject.end_date = nil
       expect(subject).to_not be_valid
-      expect(subject.errors[:La_date]).to include("doit être renseignée.")
+      expect(subject.errors[:date]).to include("must exist.")
     end
 
     it "is not valid with an end_date before start_date" do
       subject.end_date = subject.start_date - 1.day
       expect(subject).to_not be_valid
-      expect(subject.errors[:La_date]).to include("ne peut pas être inférieure à la date de début d'événement")
+      expect(subject.errors[:date]).to include("can't be before start date")
     end
 
     it "is not valid without a location" do
