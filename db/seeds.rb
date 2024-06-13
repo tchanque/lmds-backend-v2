@@ -86,4 +86,23 @@ EventInstrument.create!(
   level: 1
 )
 
+# Create skills
+Skill.create!(
+  musician: user1,
+  instrument: instrument3,
+  level: 1
+)
+
+Skill.create!(
+  musician: user1,
+  instrument: instrument2,
+  level: 4
+)
+
+Skill.create!(
+  musician: user2,
+  instrument: instrument3,
+  level: 3
+)
+
 puts "Database seeded successfully!"

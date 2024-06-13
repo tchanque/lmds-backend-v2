@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_132659) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_13_134214) do
   create_table "event_instruments", force: :cascade do |t|
     t.integer "event_id"
     t.integer "instrument_id"
@@ -60,6 +60,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_132659) do
     t.index ["creator_id"], name: "index_publications_on_creator_id"
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.integer "musician_id", null: false
+    t.integer "instrument_id", null: false
+    t.integer "level", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instrument_id"], name: "index_skills_on_instrument_id"
+    t.index ["musician_id"], name: "index_skills_on_musician_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -82,4 +92,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_132659) do
   add_foreign_key "event_instruments", "instruments"
   add_foreign_key "events", "users", column: "creator_id"
   add_foreign_key "publications", "users", column: "creator_id"
+  add_foreign_key "skills", "instruments"
+  add_foreign_key "skills", "users", column: "musician_id"
 end
