@@ -1,5 +1,6 @@
 # Clear existing data
 EventInstrument.destroy_all
+Skill.destroy_all
 Event.destroy_all
 Instrument.destroy_all
 User.destroy_all
