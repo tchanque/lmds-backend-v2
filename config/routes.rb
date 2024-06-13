@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :instruments
+  resources :events
   devise_for :users,
   controllers: {
     sessions: 'users/sessions',
