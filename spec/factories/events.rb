@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :event do
-    creator { nil }
+    association :creator, factory: :user
+    # creator { nil }
     category { "MyString" }
     price { 1 }
     start_date { "2024-06-13 10:48:19" }

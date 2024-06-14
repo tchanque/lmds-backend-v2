@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attendances
   resources :skills
   resources :publications
   resources :event_instruments

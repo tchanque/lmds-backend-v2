@@ -3,6 +3,7 @@ class Instrument < ApplicationRecord
 
     validates :name, presence: true, inclusion: { in: INSTRUMENTS }
 
-    has_many :event_instruments
+    has_many :skills, dependent: :destroy
+    has_many :event_instruments, dependent: :destroy
 
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :instrument do
-    name { "MyString" }
+    name { "Guitare" }
   end
 end
