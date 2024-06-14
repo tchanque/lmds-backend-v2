@@ -10,9 +10,10 @@ class Event < ApplicationRecord
     validates :location, presence: true
     validates :price, numericality: { greater_than_or_equal_to: 0 }
   
-    has_many :event_instruments, dependent: :destroy
     has_many :attendances, dependent: :destroy
     has_many :attendees, through: :attendances, source: :user
+
+    has_many :event_instruments, dependent: :destroy
 
     private
 

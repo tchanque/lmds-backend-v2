@@ -23,23 +23,23 @@ user1 = User.create!(
   subscription_end_date: DateTime.now + 1.year
 )
 
-# user2 = User.create!(
-#   email: 'admin@example.com',
-#   password: PASSWORD,
-#   first_name: 'Jane',
-#   last_name: 'Smith',
-#   role: 'admin',
-#   is_subscriber: false
-# )
+user2 = User.create!(
+  email: 'admin@example.com',
+  password: PASSWORD,
+  first_name: 'Jane',
+  last_name: 'Smith',
+  role: 'admin',
+  is_subscriber: false
+)
 
-# user3 = User.create!(
-#   email: 'student@example.com',
-#   password: PASSWORD,
-#   first_name: 'Jane',
-#   last_name: 'Smith',
-#   role: 'student',
-#   is_subscriber: false
-# )
+user3 = User.create!(
+  email: 'student@example.com',
+  password: PASSWORD,
+  first_name: 'Jane',
+  last_name: 'Smith',
+  role: 'student',
+  is_subscriber: false
+)
 
 # Create events
 5.times do |i|
