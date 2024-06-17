@@ -7,11 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins '*'
+      origins 'http://localhost:5173'
   
       resource '*',
                headers: :any,
                methods: %i[get post put patch delete options head],
-               expose: %w[Authorization Uid]
+               expose: %w[Authorization Uid], # Expose these headers to the client
+               credentials: true # Allow credentials (cookies, authorization headers, etc.) to be included
     end
   end
