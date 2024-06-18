@@ -32,6 +32,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     protected
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :first_name, :last_name, :role, :subscription_end_date])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :first_name, :last_name, :role, :subscription_end_date, :is_subscriber])
     end
   end
