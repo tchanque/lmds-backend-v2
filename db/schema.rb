@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_135656) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_152042) do
   create_table "attendances", force: :cascade do |t|
     t.integer "attendee_id"
     t.integer "event_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_135656) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
     t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
@@ -63,7 +64,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_135656) do
   end
 
   create_table "publications", force: :cascade do |t|
-    t.integer "creator_id"
+    t.integer "creator_id", null: false
     t.string "title"
     t.text "description"
     t.boolean "to_display", default: true
@@ -73,8 +74,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_135656) do
   end
 
   create_table "skills", force: :cascade do |t|
-    t.integer "musician_id"
-    t.integer "instrument_id"
+    t.integer "musician_id", null: false
+    t.integer "instrument_id", null: false
     t.integer "level", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
