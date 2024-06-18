@@ -21,10 +21,18 @@ class User < ApplicationRecord
     (?=.*[[:^alnum:]]) # Must contain a symbol
   /x
   
+  ROLES = ["Etudiant", "Professeur", "Admin"]
+
   validates :email, presence: true, uniqueness: true, format: {
     with: URI::MailTo::EMAIL_REGEXP,
   }
   validates :password, presence: true, format: {
     with: PASSWORD_FORMAT,
-    }
+  }
+
+  validates :role, presence: true, inclusion: { in: ROLES }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
+  validates :subscription_end_date, presence: true
 end
