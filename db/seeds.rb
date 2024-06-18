@@ -18,7 +18,7 @@ user1 = User.create!(
   password: PASSWORD,
   first_name: 'John',
   last_name: 'Doe',
-  role: 'teacher',
+  role: 'Professeur',
   is_subscriber: true,
   subscription_end_date: DateTime.now + 1.year
 )
@@ -28,8 +28,9 @@ user2 = User.create!(
   password: PASSWORD,
   first_name: 'Jane',
   last_name: 'Smith',
-  role: 'admin',
-  is_subscriber: false
+  role: 'Admin',
+  is_subscriber: false,
+  subscription_end_date: DateTime.now + 1.year
 )
 
 user3 = User.create!(
@@ -37,8 +38,9 @@ user3 = User.create!(
   password: PASSWORD,
   first_name: 'Jane',
   last_name: 'Smith',
-  role: 'student',
-  is_subscriber: false
+  role: 'Etudiant',
+  is_subscriber: false,
+  subscription_end_date: DateTime.now + 1.year
 )
 
 # Create events
