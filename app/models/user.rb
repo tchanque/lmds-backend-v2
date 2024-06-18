@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   
+  # after_create :send_welcome_email
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -33,6 +34,17 @@ class User < ApplicationRecord
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
+  # validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
   validates :subscription_end_date, presence: true
+
+  private
+
+  def send_welcome_email
+    Rails.logger.info("Sending welcome email to #{self.email}")
+    adapter = MailAdapter::BrevoAdapter.new
+    adapter.send_now(self)
+  rescue => e
+    Rails.logger.error("Failed to send welcome email: #{e.message}")
+  end
+
 end
