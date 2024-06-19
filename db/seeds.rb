@@ -83,7 +83,7 @@ end
     instrument: Instrument.all.sample,
     total_spots: 5,
     available_spots: 5,
-    level: rand(5)
+    level: rand(5).to_s
   )
 end
 
