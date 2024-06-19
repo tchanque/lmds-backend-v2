@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_152042) do
   end
 
   create_table "publications", force: :cascade do |t|
-    t.integer "creator_id", null: false
+    t.integer "creator_id"
     t.string "title"
     t.text "description"
     t.boolean "to_display", default: true
@@ -74,8 +74,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_152042) do
   end
 
   create_table "skills", force: :cascade do |t|
-    t.integer "musician_id", null: false
-    t.integer "instrument_id", null: false
+    t.integer "musician_id"
+    t.integer "instrument_id"
     t.integer "level", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
