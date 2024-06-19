@@ -1,5 +1,9 @@
 require File.join(Dir.pwd, 'app/models/event')
+require File.join(Dir.pwd, 'app/models/instrument')
+
 CATEGORIES = Event::CATEGORIES
+INSTRUMENTS = Instrument::INSTRUMENTS
+PASSWORD = "Coucou!123"
 
 # Clear existing data
 Attendance.destroy_all
@@ -10,7 +14,12 @@ Event.destroy_all
 Instrument.destroy_all
 User.destroy_all
 
-PASSWORD = "Coucou!123"
+# Create instruments
+INSTRUMENTS.each do |instrument|
+  Instrument.create!(
+    name: instrument
+  )
+end
 
 # Create users
 user1 = User.create!(
@@ -48,6 +57,7 @@ user3 = User.create!(
   Event.create!(
     creator: User.all.sample,
     category: CATEGORIES.sample,
+    title: Faker::Lorem.sentence(word_count: 4),
     price: rand(100),
     start_date: DateTime.now + 1.month,
     end_date: DateTime.now + 1.month + 1.day,
@@ -62,14 +72,9 @@ end
     creator: User.all.sample,
     title: Faker::Lorem.sentence(word_count: 1),
     description: Faker::Lorem.sentence(word_count: 2),
-    to_display: [true, false].sample
+    to_display: [true].sample
   )
 end
-
-# Create instruments
-instrument1 = Instrument.create!(name: 'Guitare')
-instrument2 = Instrument.create!(name: 'Piano')
-instrument3 = Instrument.create!(name: 'Basse')
 
 # Create event instruments
 10.times do |i|
@@ -81,6 +86,7 @@ instrument3 = Instrument.create!(name: 'Basse')
     level: rand(5)
   )
 end
+
 
 # Create skills
 5.times do |i|
@@ -99,5 +105,6 @@ end
     event_instrument: EventInstrument.all.sample
   )
 end
+
 
 puts "Database seeded successfully!"

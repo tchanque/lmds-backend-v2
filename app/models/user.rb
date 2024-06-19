@@ -33,6 +33,6 @@ class User < ApplicationRecord
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
+  # validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
   validates :subscription_end_date, presence: true
 end
