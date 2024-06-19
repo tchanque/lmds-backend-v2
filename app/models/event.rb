@@ -5,6 +5,7 @@ class Event < ApplicationRecord
   
     validates :creator, presence: true
     validates :category, presence: true, inclusion: { in: CATEGORIES }
+    validates :title, presence: true
     validates :start_date, presence: true, if: :valid_date?
     validates :end_date, presence: true, if: :valid_date?
     validates :location, presence: true

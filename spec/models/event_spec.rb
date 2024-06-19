@@ -2,12 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
-  let(:creator) { create(:user) } 
+  let(:creator) { create(:user) }
   
   subject {
     described_class.new(
       creator: creator,
       category: "Concert",
+      title: "Concert de Folk",
       start_date: Date.today + 1.day,
       end_date: Date.today + 2.days,
       location: "Paris",
@@ -30,6 +31,12 @@ RSpec.describe Event, type: :model do
       subject.category = nil
       expect(subject).to_not be_valid
       expect(subject.errors[:category]).to include("can't be blank")
+    end
+
+    it "is not valid without a title" do
+      subject.title = nil
+      expect(subject).to_not be_valid
+      expect(subject.errors[:title]).to include("can't be blank")
     end
 
     it "is not valid with an invalid category" do

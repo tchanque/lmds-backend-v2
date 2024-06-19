@@ -3,6 +3,6 @@ FactoryBot.define do
     association :creator, factory: :user
     title { "MyString" }
     description { "MyText" }
-    to_display { false }
+    to_display { true }
   end
 end
