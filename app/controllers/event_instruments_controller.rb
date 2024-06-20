@@ -15,7 +15,6 @@ class EventInstrumentsController < ApplicationController
 
   # POST /event_instruments
   def create
-    
     new_params = {
         "instrument": Instrument.find_by(name: params["event_instrument"][:instrument_name]),
         "event_id": params["event_instrument"][:event_id],
