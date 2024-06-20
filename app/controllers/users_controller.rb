@@ -7,7 +7,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user
+    Rails.logger.debug "UsersController#show called with params: #{params.inspect}"
+    render json: {
+      message: 'User found.',
+      user: @user
+    }, status: :ok
   end
 
   def update
