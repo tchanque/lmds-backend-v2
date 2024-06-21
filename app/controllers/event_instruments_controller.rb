@@ -28,6 +28,7 @@ class EventInstrumentsController < ApplicationController
     if @event_instrument.save
       render json: @event_instrument, status: :created, location: @event_instrument
     else
+      Event.find(params["event_instrument"][:event_id]).destroy
       render json: @event_instrument.errors, status: :unprocessable_entity
     end
   end
