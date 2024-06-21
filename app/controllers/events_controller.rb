@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show update destroy]
   before_action :authorize_user, only: %i[update destroy]
-  before_action :authenticate_admin_or_professor
+  before_action :authenticate_admin_or_professor, only: %i[create]
   
   def index
     @events = Event.includes(event_instruments: :instrument).all
