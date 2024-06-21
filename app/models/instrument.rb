@@ -1,5 +1,5 @@
 class Instrument < ApplicationRecord
-    INSTRUMENTS = ['Aucun', 'Guitare', 'Piano', 'Basse', 'MAO', 'Ukulele', 'Harmonie', 'Batterie', 'Chant']
+    INSTRUMENTS = ['Aucun', 'Guitare', 'Piano', 'Basse', 'MAO', 'Ukulélé', 'Harmonie', 'Batterie', 'Chant']
 
     validates :name, presence: true, inclusion: { in: INSTRUMENTS }
 
