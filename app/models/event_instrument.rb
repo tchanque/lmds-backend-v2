@@ -7,5 +7,5 @@ class EventInstrument < ApplicationRecord
   LEVEL = [0, 1, 2, 3, 4, 5]
 
   validates :total_spots, :available_spots, presence: true
-  validates :level, presence: true, inclusion: { in: LEVEL }
+  validates :level, presence: true#, inclusion: { in: LEVEL }
 end

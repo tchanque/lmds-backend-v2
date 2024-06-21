@@ -15,7 +15,15 @@ class EventInstrumentsController < ApplicationController
 
   # POST /event_instruments
   def create
-    @event_instrument = EventInstrument.new(event_instrument_params)
+    new_params = {
+        "instrument": Instrument.find_by(name: params["event_instrument"][:instrument_name]),
+        "event_id": params["event_instrument"][:event_id],
+        "level": params["event_instrument"][:level],
+        "total_spots": params["event_instrument"][:total_spots].to_i,
+        "available_spots": params["event_instrument"][:total_spots].to_i
+    }
+
+    @event_instrument = EventInstrument.new(new_params)
 
     if @event_instrument.save
       render json: @event_instrument, status: :created, location: @event_instrument
@@ -46,6 +54,6 @@ class EventInstrumentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_instrument_params
-      params.require(:event_instrument).permit(:event_id, :instrument_id, :total_spots, :available_spots, :level)
+      params.require(:event_instrument).permit(:event_id, :total_spots, :available_spots, :level, :instrument)
     end
 end
