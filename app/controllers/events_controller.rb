@@ -4,9 +4,18 @@ class EventsController < ApplicationController
   before_action :authenticate_admin_or_professor
   
   def index
-    @events = Event.all
+    @events = Event.includes(event_instruments: :instrument).all
 
-    render json: @events
+    render json: @events.as_json(include: {
+      event_instruments: {
+        include: {
+          instrument: {
+            only: [:name]
+          }
+        },
+        only: [:level, :available_spots, :total_spots]
+      }
+    })
   end
 
   def show
