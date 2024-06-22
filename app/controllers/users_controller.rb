@@ -19,12 +19,18 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:skills).find(params[:id])
-    
-    render json: {
-      message: 'User found.',
-      user: @user.as_json(include: :skills)
-    }, status: :ok
+    @user = User.includes(skills: :instrument).find(params[:id])
+
+    render json: @user.as_json(include: {
+      skills: {
+        include: {
+          instrument: {
+            only: [:name]
+          }
+        },
+        only: [:level]
+      }
+    })
   end
 
   def update
