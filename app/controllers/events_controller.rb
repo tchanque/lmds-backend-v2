@@ -13,13 +13,22 @@ class EventsController < ApplicationController
             only: [:name]
           }
         },
-        only: [:level, :available_spots, :total_spots]
+        only: [:level, :available_spots, :total_spots, :id]
       }
     })
   end
-
   def show
-    render json: @event
+    render json: @event.as_json(include: {
+      event_instruments: {
+        include: {
+          instrument: {
+            only: [:name]
+          }
+        },
+        only: [:level, :available_spots, :total_spots, :id]
+      }
+    })
+
   end
 
   def create
