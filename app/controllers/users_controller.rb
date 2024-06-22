@@ -4,6 +4,18 @@ class UsersController < ApplicationController
   before_action :authorize_user, only: %i[update destroy]
 
   def index
+    @users = User.includes(skills: :instrument).all
+
+    render json: @users.as_json(include: {
+      skills: {
+        include: {
+          instrument: {
+            only: [:name]
+          }
+        },
+        only: [:level]
+      }
+    })
   end
 
   def show

@@ -1,5 +1,6 @@
 class PublicationsController < ApplicationController
-  before_action :set_publication, only: %i[ show update destroy ]
+  before_action :set_publication, only: %i[show update destroy]
+  before_action :authorize_user, except: %i[show] 
 
   # GET /publications
   def index
@@ -47,5 +48,11 @@ class PublicationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def publication_params
       params.require(:publication).permit(:creator_id, :title, :description, :to_display)
+    end
+
+    def authorize_user
+      unless current_user.role == "Admin"
+        render json: { error: "Action non autorisée" }, status: :unauthorized
+      end
     end
 end
