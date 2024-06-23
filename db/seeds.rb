@@ -29,7 +29,8 @@ user1 = User.create!(
   last_name: 'Doe',
   role: 'Professeur',
   is_subscriber: true,
-  subscription_end_date: DateTime.now + 1.year
+  subscription_end_date: DateTime.now + 1.year,
+  description: Faker::Lorem.sentence(word_count: 10)
 )
 
 user2 = User.create!(
@@ -39,7 +40,8 @@ user2 = User.create!(
   last_name: 'Smith',
   role: 'Admin',
   is_subscriber: false,
-  subscription_end_date: DateTime.now + 1.year
+  subscription_end_date: DateTime.now + 1.year,
+  description: Faker::Lorem.sentence(word_count: 10)
 )
 
 user3 = User.create!(
@@ -49,7 +51,8 @@ user3 = User.create!(
   last_name: 'Smith',
   role: 'Etudiant',
   is_subscriber: false,
-  subscription_end_date: DateTime.now + 1.year
+  subscription_end_date: DateTime.now + 1.year,
+  description: Faker::Lorem.sentence(word_count: 10)
 )
 
 # Create events

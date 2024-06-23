@@ -34,6 +34,20 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.update(user_params)
+      render json: @user.as_json(include: {
+        skills: {
+          include: {
+            instrument: {
+              only: [:name]
+            }
+          },
+          only: [:level]
+        }
+      })
+    else
+      render json: { message: 'Failed to update user.', errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -49,6 +63,10 @@ class UsersController < ApplicationController
     unless current_user.role == "Admin" || current_user.id == @user.id
       render json: { error: "Action non autorisée" }, status: :unauthorized
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :description)
   end
 end
 

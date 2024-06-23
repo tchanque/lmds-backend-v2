@@ -26,16 +26,16 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, format: {
     with: URI::MailTo::EMAIL_REGEXP,
-  }
+  }, on: :create
   validates :password, presence: true, format: {
     with: PASSWORD_FORMAT,
-  }
+  }, on: :create
 
-  validates :role, presence: true, inclusion: { in: ROLES }
+  validates :role, presence: true, inclusion: { in: ROLES }, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
   # validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
-  validates :subscription_end_date, presence: true
+  validates :subscription_end_date, presence: true, on: :create
 
   private
 
