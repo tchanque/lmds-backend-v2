@@ -1,6 +1,6 @@
 class PublicationsController < ApplicationController
   before_action :set_publication, only: %i[show update destroy]
-  before_action :authorize_user, except: %i[show] 
+  before_action :authorize_user, only: %i[create update destroy]
 
   # GET /publications
   def index
