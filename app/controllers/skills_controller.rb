@@ -15,7 +15,14 @@ class SkillsController < ApplicationController
 
   # POST /skills
   def create
-    @skill = Skill.new(skill_params)
+    user = User.find(skill_params[:musician_id])
+    instrument = Instrument.find_by(name: skill_params[:instrument_name])
+
+    @skill = Skill.new(
+      musician_id: user.id,
+      instrument: instrument,
+      level: skill_params[:level]
+    )
 
     if @skill.save
       render json: @skill, status: :created, location: @skill
@@ -46,6 +53,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.require(:skill).permit(:musician_id, :instrument_id, :level)
+      params.require(:skill).permit(:musician_id, :instrument_name, :level)
     end
 end
