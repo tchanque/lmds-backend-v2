@@ -84,8 +84,8 @@ end
   EventInstrument.create!(
     event: Event.all.sample,
     instrument: Instrument.all.sample,
-    total_spots: 5,
-    available_spots: 5,
+    total_spots: 0,
+    available_spots: 0,
     level: rand(5).to_s
   )
 end
