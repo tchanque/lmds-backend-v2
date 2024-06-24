@@ -19,6 +19,7 @@ class AttendancesController < ApplicationController
 
     if @attendance.save
       render json: @attendance, status: :created, location: @attendance
+      
     else
       render json: @attendance.errors, status: :unprocessable_entity
     end
