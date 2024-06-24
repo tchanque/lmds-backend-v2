@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy ]
-  before_action :authenticate_user!, only: %i[show update destroy]
-  before_action :authorize_user, only: %i[update destroy]
+  before_action :set_user, only: %i[ show update destroy change_password ]
+  before_action :authenticate_user!, only: %i[show update destroy change_password]
+  before_action :authorize_user, only: %i[update destroy change_password]
 
   def index
     @users = User.includes(skills: :instrument).all
@@ -19,8 +19,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(skills: :instrument).find(params[:id])
-
     render json: @user.as_json(include: {
       skills: {
         include: {
@@ -50,6 +48,15 @@ class UsersController < ApplicationController
     end
   end
 
+  # PATCH /users/:id/change_password
+  def change_password
+    if @user.update_with_password(password_params)
+      render json: { message: 'Password updated successfully' }, status: :ok
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   def destroy
   end
 
@@ -67,6 +74,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :description)
+  end
+
+  def password_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
 end
 

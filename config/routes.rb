@@ -17,8 +17,11 @@ Rails.application.routes.draw do
              }
 
   resources :users, only: %i[index show update destroy]
-
-  get '/member-data', to: 'members#show'
+  resources :users, only: [:show, :update] do
+    member do
+      patch :change_password
+    end
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

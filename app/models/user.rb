@@ -1,8 +1,7 @@
 class User < ApplicationRecord
   
   after_create :send_welcome_email
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
@@ -29,12 +28,11 @@ class User < ApplicationRecord
   }, on: :create
   validates :password, presence: true, format: {
     with: PASSWORD_FORMAT,
-  }, on: :create
+  }, on: [:create, :update], if: :password_required?
 
   validates :role, presence: true, inclusion: { in: ROLES }, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
-  # validates :is_subscriber, presence: true, inclusion: { in: [true, false] }
   validates :subscription_end_date, presence: true, on: :create
 
   private
@@ -45,6 +43,11 @@ class User < ApplicationRecord
     adapter.send_now(self)
   rescue => e
     Rails.logger.error("Failed to send welcome email: #{e.message}")
+  end
+
+  # The password_required? method returns true if either password or password_confirmation is present.
+  def password_required?
+    !password.nil? || !password_confirmation.nil?
   end
 
 end
