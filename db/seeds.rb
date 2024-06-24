@@ -100,14 +100,14 @@ end
   )
 end
 
-5.times do |i|
-  Attendance.create!(
-    attendee: User.all.sample, 
-    event: Event.all.sample,
-    is_pending: [true, false].sample,
-    event_instrument: EventInstrument.all.sample
-  )
-end
+# 5.times do |i|
+#   Attendance.create!(
+#     attendee: User.all.sample, 
+#     event: Event.all.sample,
+#     is_pending: [true, false].sample,
+#     event_instrument: EventInstrument.all.sample
+#   )
+# end
 
 
 puts "Database seeded successfully!"

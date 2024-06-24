@@ -1,5 +1,7 @@
 class AttendancesController < ApplicationController
   before_action :set_attendance, only: %i[ show update destroy ]
+  # after_action :decrement_available_spots, only: %i[create]
+  after_action :increment_available_spots, only: %i[destroy]
 
   # GET /attendances
   def index
@@ -19,7 +21,7 @@ class AttendancesController < ApplicationController
 
     if @attendance.save
       render json: @attendance, status: :created, location: @attendance
-      
+      decrement_available_spots()
     else
       render json: @attendance.errors, status: :unprocessable_entity
     end
@@ -48,5 +50,17 @@ class AttendancesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def attendance_params
       params.require(:attendance).permit(:attendee_id, :event_id, :is_pending, :event_instrument_id)
+    end
+
+    def decrement_available_spots
+      event_instrument = EventInstrument.find(@attendance.event_instrument_id)
+      new_available_spots = event_instrument.available_spots - 1
+      event_instrument.update(available_spots: new_available_spots)
+    end
+
+    def increment_available_spots
+      event_instrument = EventInstrument.find(@attendance.event_instrument_id)
+      new_available_spots = event_instrument.available_spots + 1
+      event_instrument.update(available_spots: new_available_spots)
     end
 end
