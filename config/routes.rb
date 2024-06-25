@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update] do
     member do
       patch :change_password
+      # post :resend_welcome_email
     end
   end
 

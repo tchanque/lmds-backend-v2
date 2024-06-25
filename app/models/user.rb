@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   
-  after_create :send_welcome_email
+  # after_create :send_welcome_email
 
   devise :database_authenticatable, :registerable,
   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
@@ -37,13 +37,13 @@ class User < ApplicationRecord
 
   private
 
-  def send_welcome_email
-    Rails.logger.info("Sending welcome email to #{self.email}")
-    adapter = MailAdapter::BrevoAdapter.new
-    adapter.send_now(self)
-  rescue => e
-    Rails.logger.error("Failed to send welcome email: #{e.message}")
-  end
+  # def send_welcome_email(password)
+  #   Rails.logger.info("Sending welcome email to #{self.email}")
+  #   adapter = MailAdapter::BrevoAdapter.new
+  #   adapter.send_now(self, password)
+  # rescue => e
+  #   Rails.logger.error("Failed to send welcome email: #{e.message}")
+  # end
 
   # The password_required? method returns true if either password or password_confirmation is present.
   def password_required?
