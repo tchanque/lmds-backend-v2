@@ -72,8 +72,8 @@ user3 = User.create!(
     EventInstrument.create!(
       event: event,
       instrument: Instrument.where.not(name: "Aucun").sample,
-      total_spots: 0,
-      available_spots: 0,
+      total_spots: 1,
+      available_spots: 1,
       level: rand(5).to_s
     )
   end
@@ -96,8 +96,8 @@ end
   EventInstrument.create!(
     event: event,
     instrument: Instrument.find_by(name: "Aucun"),
-    total_spots: 0,
-    available_spots: 0,
+    total_spots: 999,
+    available_spots: 999,
     level: rand(5).to_s
   )
 end
