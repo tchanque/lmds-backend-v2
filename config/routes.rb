@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :users, only: %i[index show update destroy]
-    resources :events, only: %i[index show create update destroy]
-  end
-
   resources :attendances
   resources :skills
   resources :publications

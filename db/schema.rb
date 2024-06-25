@@ -11,11 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_19_133103) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "attendances", force: :cascade do |t|
-    t.integer "attendee_id"
-    t.integer "event_id"
+    t.bigint "attendee_id"
+    t.bigint "event_id"
     t.boolean "is_pending"
-    t.integer "event_instrument_id"
+    t.bigint "event_instrument_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attendee_id"], name: "index_attendances_on_attendee_id"
@@ -24,8 +27,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_133103) do
   end
 
   create_table "event_instruments", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "instrument_id"
+    t.bigint "event_id"
+    t.bigint "instrument_id"
     t.integer "total_spots"
     t.integer "available_spots"
     t.string "level"
@@ -36,7 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_133103) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "creator_id"
+    t.bigint "creator_id"
     t.string "category"
     t.integer "price"
     t.datetime "start_date"
@@ -64,7 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_133103) do
   end
 
   create_table "publications", force: :cascade do |t|
-    t.integer "creator_id"
+    t.bigint "creator_id"
     t.string "title"
     t.text "description"
     t.boolean "to_display", default: true
@@ -74,8 +77,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_133103) do
   end
 
   create_table "skills", force: :cascade do |t|
-    t.integer "musician_id"
-    t.integer "instrument_id"
+    t.bigint "musician_id"
+    t.bigint "instrument_id"
     t.integer "level", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
