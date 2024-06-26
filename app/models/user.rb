@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   
+  has_one_attached :profile_picture
   # after_create :send_welcome_email
 
   devise :database_authenticatable, :registerable,
@@ -34,6 +35,18 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :subscription_end_date, presence: true, on: :create
+
+  # def profile_picture_url
+  #   Rails.application.routes.url_helpers.url_for(profile_picture) if profile_picture.attached?
+  # end
+
+  def profile_picture_url
+    if profile_picture.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(profile_picture, only_path: true)
+    else
+      nil
+    end
+  end
 
   private
 

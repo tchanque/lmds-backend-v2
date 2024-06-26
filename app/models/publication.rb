@@ -1,4 +1,6 @@
 class Publication < ApplicationRecord
+
+  has_one_attached :publication_picture
   belongs_to :creator, class_name: 'User'
   
   validates :title, presence: true
