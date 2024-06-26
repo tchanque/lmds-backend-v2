@@ -57,6 +57,17 @@ class UsersController < ApplicationController
     end
   end
 
+  # # RESEND EMAIL /users/:id/send_welcome_email
+  # def resend_welcome_email
+  #   @user = User.find(params[:id])
+  #   @user.send_welcome_email
+  #   render json: { success: true, message: 'Email de bienvenue renvoyé avec succès' }, status: :ok
+  # rescue ActiveRecord::RecordNotFound => e
+  #   render json: { success: false, message: "Utilisateur non trouvé" }, status: :not_found
+  # rescue StandardError => e
+  #   render json: { success: false, message: "Erreur lors de l'envoi de l'email : #{e.message}" }, status: :unprocessable_entity
+  # end
+
   def destroy
     @user.destroy
   end
