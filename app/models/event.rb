@@ -17,6 +17,15 @@ class Event < ApplicationRecord
 
     has_many :event_instruments, dependent: :destroy
 
+
+    def event_picture_url
+      if event_picture.attached?
+        Rails.application.routes.url_helpers.rails_blob_path(event_picture, only_path: true)
+      else
+        nil
+      end
+    end
+
     private
 
     def valid_date?
