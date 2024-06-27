@@ -15,7 +15,7 @@ class UsersController < ApplicationController
         },
         only: [:level]
       }
-    })
+    }, methods: :profile_picture_url)
   end
 
   def show
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         },
         only: [:level]
       }
-    })
+    }, methods: :profile_picture_url)
   end
 
   def update
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
           },
           only: [:level]
         }
-      })
+      }, methods: :profile_picture_url)
     else
       render json: { message: 'Failed to update user.', errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :description)
+    params.require(:user).permit(:first_name, :last_name, :description, :profile_picture)
   end
 
   def password_params
