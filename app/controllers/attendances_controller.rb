@@ -17,7 +17,18 @@ class AttendancesController < ApplicationController
   # POST /attendances
   def create
     @attendance = Attendance.new(attendance_params)
+    available_spots = @attendance.event_instrument.available_spots
 
+    # double check the availability of spots, in case another user subscribes/unsubscribes to the event at the same time
+    if available_spots === 0
+      # if the number of spots is actually 0, then the user shouldnt be allowed to subscribe as an attendee
+      # that's why the user's attendance should be pending
+      @attendance.update(is_pending: true)
+    else
+      # else, there are available spots in the event and the user should be in the attendance
+      @attendance.update(is_pending: false)
+    end
+ 
     if @attendance.save
       render json: @attendance, status: :created, location: @attendance
     else
