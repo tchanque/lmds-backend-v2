@@ -52,9 +52,11 @@ gem "devise", "~> 4.9"
 gem "devise-jwt", "~> 0.11.0"
 gem "rack-cors", "~> 2.0"
 
-gem "table_print", "~> 1.5"
+gem "table_print", "~> 1.5" 
 
 gem "faker", "~> 3.4"
 gem 'dotenv-rails'
 gem 'sib-api-v3-sdk'
 gem "dockerfile-rails", ">= 1.6", :group => :development
+gem 'aws-sdk-s3', require: false
+gem 'image_processing'
