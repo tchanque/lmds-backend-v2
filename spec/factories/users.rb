@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :user do
-    email { "test@example.com" }
+    sequence(:email) { |n| "test#{n}@example.com" }
     password { "Password1!" }
     password_confirmation { "Password1!" }
-    role { "Etudiant" } # Vous pouvez également utiliser `ROLES.sample` pour un rôle aléatoire
+    role { "Etudiant" } 
     first_name { "John" }
     last_name { "Doe" }
     is_subscriber { true }

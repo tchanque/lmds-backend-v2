@@ -15,8 +15,8 @@ class EventsController < ApplicationController
           }
         },
         only: [:level, :available_spots, :total_spots, :id]
-      }
-    })
+      } 
+    }, methods: :event_picture_url)
   end
 
   def show
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
         },
         only: [:level, :available_spots, :total_spots, :id]
       }
-    })
+    }, methods: :event_picture_url)
   end
 
   def create
@@ -38,6 +38,9 @@ class EventsController < ApplicationController
     @event.creator_id = current_user.id
 
     if @event.save
+      if params[:event_picture].present?
+        @event.event_picture.attach(params[:event_picture])
+      end
       render json: @event, status: :created, location: @event
     else
       render json: @event.errors, status: :unprocessable_entity
@@ -46,6 +49,9 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
+      if params[:event_picture].present?
+        @event.event_picture.attach(params[:event_picture])
+      end
       render json: @event
     else
       render json: @event.errors, status: :unprocessable_entity
@@ -64,7 +70,7 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:category, :title, :price, :start_date, :end_date, :location, :description)
+      params.require(:event).permit(:category, :title, :price, :start_date, :end_date, :location, :description, :event_picture)
     end
 
     def authenticate_admin_or_professor
