@@ -15,7 +15,7 @@ class UsersController < ApplicationController
         },
         only: [:level]
       }
-    })
+    }, methods: :profile_picture_url)
   end
 
   def show
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         },
         only: [:level]
       }
-    })
+    }, methods: :profile_picture_url)
   end
 
   def update
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
           },
           only: [:level]
         }
-      })
+      }, methods: :profile_picture_url)
     else
       render json: { message: 'Failed to update user.', errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -56,6 +56,17 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
+
+  # # RESEND EMAIL /users/:id/send_welcome_email
+  # def resend_welcome_email
+  #   @user = User.find(params[:id])
+  #   @user.send_welcome_email
+  #   render json: { success: true, message: 'Email de bienvenue renvoyé avec succès' }, status: :ok
+  # rescue ActiveRecord::RecordNotFound => e
+  #   render json: { success: false, message: "Utilisateur non trouvé" }, status: :not_found
+  # rescue StandardError => e
+  #   render json: { success: false, message: "Erreur lors de l'envoi de l'email : #{e.message}" }, status: :unprocessable_entity
+  # end
 
   def destroy
     @user.destroy
@@ -74,7 +85,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :description)
+    params.require(:user).permit(:first_name, :last_name, :description, :profile_picture)
   end
 
   def password_params
