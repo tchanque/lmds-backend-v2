@@ -19,6 +19,9 @@ class PublicationsController < ApplicationController
     @publication = Publication.new(publication_params)
 
     if @publication.save
+      if params[:publication_picture].present?
+        @publication.publication_picture.attach(params[:publication_picture])
+      end
       render json: @publication, status: :created, location: @publication
     else
       render json: @publication.errors, status: :unprocessable_entity
@@ -28,6 +31,9 @@ class PublicationsController < ApplicationController
   # PATCH/PUT /publications/1
   def update
     if @publication.update(publication_params)
+      if params[:publication_picture].present?
+        @publication.publication_picture.attach(params[:publication_picture])
+      end
       render json: @publication
     else
       render json: @publication.errors, status: :unprocessable_entity
@@ -47,7 +53,7 @@ class PublicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def publication_params
-      params.require(:publication).permit(:creator_id, :title, :description, :to_display)
+      params.require(:publication).permit(:creator_id, :title, :description, :to_display, :publication_picture)
     end
 
     def authorize_user
