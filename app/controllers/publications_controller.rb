@@ -19,11 +19,12 @@ class PublicationsController < ApplicationController
     @publication = Publication.new(publication_params)
     @publication.creator_id = current_user.id
 
+    if params[:publication][:publication_picture].present?
+      @publication.publication_picture.attach(params[:publication][:publication_picture])
+    end
+
     if @publication.save
-      if params[:publication_picture].present?
-        @publication.publication_picture.attach(params[:publication_picture])
-      end
-      render json: @publication, status: :created, location: @publication
+      render json: @publication.as_json(methods: :publication_picture_url), status: :created, location: @publication
     else
       render json: @publication.errors, status: :unprocessable_entity
     end
