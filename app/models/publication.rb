@@ -16,5 +16,5 @@ class Publication < ApplicationRecord
     else
       nil
     end
-
+  end
 end
