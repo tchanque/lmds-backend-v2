@@ -7,7 +7,7 @@ class Publication < ApplicationRecord
   validates :description, presence: true
   validates :to_display, presence: true, inclusion: { in: [true, false] }
 
-
+ 
   def publication_picture_url
     if publication_picture.attached?
       Rails.application.routes.url_helpers.rails_blob_url(publication_picture)
