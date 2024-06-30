@@ -10,7 +10,7 @@ class Publication < ApplicationRecord
 
   def publication_picture_url
     if publication_picture.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(publication_picture, only_path: true)
+      Rails.application.routes.url_helpers.rails_blob_url(publication_picture, only_path: false)
     else
       nil
     end
