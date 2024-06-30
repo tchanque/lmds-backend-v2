@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
     CATEGORIES = ["Atelier", "Concert", "Permanence", "Stage", "Scène ouverte"]
-  
+    has_one_attached :event_picture
+
     belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
   
     validates :creator, presence: true
@@ -15,6 +16,15 @@ class Event < ApplicationRecord
     has_many :attendees, through: :attendances, source: :user
 
     has_many :event_instruments, dependent: :destroy
+
+
+    def event_picture_url
+      if event_picture.attached?
+        Rails.application.routes.url_helpers.rails_blob_path(event_picture, only_path: true)
+      else
+        nil
+      end
+    end
 
     private
 

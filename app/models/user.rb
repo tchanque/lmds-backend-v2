@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   
-  after_create :send_welcome_email
+  has_one_attached :profile_picture
+  # after_create :send_welcome_email
 
   devise :database_authenticatable, :registerable,
   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
@@ -35,15 +36,23 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :subscription_end_date, presence: true, on: :create
 
+  def profile_picture_url
+    if profile_picture.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(profile_picture, only_path: true)
+    else
+      nil
+    end
+  end
+
   private
 
-  def send_welcome_email
-    Rails.logger.info("Sending welcome email to #{self.email}")
-    adapter = MailAdapter::BrevoAdapter.new
-    adapter.send_now(self)
-  rescue => e
-    Rails.logger.error("Failed to send welcome email: #{e.message}")
-  end
+  # def send_welcome_email(password)
+  #   Rails.logger.info("Sending welcome email to #{self.email}")
+  #   adapter = MailAdapter::BrevoAdapter.new
+  #   adapter.send_now(self, password)
+  # rescue => e
+  #   Rails.logger.error("Failed to send welcome email: #{e.message}")
+  # end
 
   # The password_required? method returns true if either password or password_confirmation is present.
   def password_required?
