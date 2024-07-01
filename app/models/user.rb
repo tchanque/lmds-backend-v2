@@ -38,7 +38,9 @@ class User < ApplicationRecord
 
   def profile_picture_url
     if profile_picture.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(profile_picture, only_path: true)
+      if Rails.application.config.active_storage.service == :amazon
+        return profile_picture.url
+      end
     else
       nil
     end

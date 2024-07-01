@@ -20,7 +20,9 @@ class Event < ApplicationRecord
 
     def event_picture_url
       if event_picture.attached?
-        Rails.application.routes.url_helpers.rails_blob_path(event_picture, only_path: true)
+        if Rails.application.config.active_storage.service == :amazon
+          return event_picture.url
+        end
       else
         nil
       end
