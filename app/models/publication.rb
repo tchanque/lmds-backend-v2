@@ -11,7 +11,7 @@ class Publication < ApplicationRecord
   def publication_picture_url
     if publication_picture.attached?
       if Rails.application.config.active_storage.service == :amazon
-        return publication_picture.service_url
+        return publication_picture.url
       end
     else
       nil
