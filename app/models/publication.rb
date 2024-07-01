@@ -5,8 +5,7 @@ class Publication < ApplicationRecord
   
   validates :title, presence: true
   validates :description, presence: true
-  validates :to_display, presence: true, inclusion: { in: [true, false] }
-
+  # validates :to_display, presence: true, inclusion: { in: [true, false] }
 
   def publication_picture_url
     if publication_picture.attached?
